@@ -6,12 +6,13 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HttpClient {
+public class ExchangeRateClient {
 
-    private HttpClient() {
+    private ExchangeRateClient() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
@@ -21,17 +22,11 @@ public class HttpClient {
         String apiKey = "91a5c353dae5ed7aaef0e248";
 
         // validations
-        if (fromCurrency == null || fromCurrency.isEmpty() || toCurrency == null || toCurrency.isEmpty()) {
-            throw new IllegalArgumentException("Currency codes cannot be null or empty");
-        }
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than zero");
-        }
+        validateData(fromCurrency, toCurrency, amount);
 
-        String url = String.format("https://v6.exchangerate-api.com/v6/%s/pair/%s/%s/%.2f",
-                apiKey, fromCurrency, toCurrency, amount);
+        String url = buildUrl(apiKey, fromCurrency, toCurrency, amount);
 
-        java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+        HttpClient client = java.net.http.HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
@@ -43,4 +38,23 @@ public class HttpClient {
         CurrencyApi currencyApi = gson.fromJson(json, CurrencyApi.class);
         return currencyApi;
     }
+
+    private static String buildUrl(String apiKey, String fromCurrency, String toCurrency, double amount) {
+        return String.format("https://v6.exchangerate-api.com/v6/%s/pair/%s/%s/%.2f",
+                apiKey, fromCurrency, toCurrency, amount);
+    }
+
+    private static void validateData(String fromCurrency, String toCurrency, double amount) {
+        if (fromCurrency == null ||
+                fromCurrency.isEmpty()
+                || toCurrency == null
+                || toCurrency.isEmpty()) {
+            throw new IllegalArgumentException("Currency data cannot be null or empty");
+        }
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+    }
+
+
 }
