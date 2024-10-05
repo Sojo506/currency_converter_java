@@ -55,6 +55,4 @@ public class ExchangeRateClient {
             throw new IllegalArgumentException("Amount must be greater than zero");
         }
     }
-
-
 }
