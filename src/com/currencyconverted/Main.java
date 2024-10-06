@@ -41,7 +41,6 @@ public class Main {
         Map<String, Double> rates = ExchangeRateClient.getCurrencyExchange().conversion_rates();
 
         Map<String, Double> filteredRates = CurrencyFilteredUtils.getFilteredRates(rates);
-        System.out.println("filteredRates = " + filteredRates);
 
         Menu.start(filteredRates);
 
