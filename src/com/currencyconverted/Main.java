@@ -2,7 +2,6 @@ package com.currencyconverted;
 
 import com.currencyconverted.api.ExchangeRateClient;
 import com.currencyconverted.ui.Menu;
-import com.currencyconverted.utils.CurrencyApi;
 import com.currencyconverted.utils.CurrencyFilteredUtils;
 
 import java.io.IOException;
@@ -31,13 +30,6 @@ Peso Colombiano =>> Dolar
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        /*CurrencyApi currencyApi = ExchangeRateClient
-                .getDynamicExchange(
-                        "USD",
-                        "CRC",
-                        5000);
-        System.out.println("currencyApi = " + currencyApi);*/
-
         Map<String, Double> rates = ExchangeRateClient.getCurrencyExchange().conversion_rates();
 
         Map<String, Double> filteredRates = CurrencyFilteredUtils.getFilteredRates(rates);
