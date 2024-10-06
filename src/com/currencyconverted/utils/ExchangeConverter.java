@@ -18,9 +18,8 @@ public class ExchangeConverter {
         double fromRate = rates.get(fromCurrency);
         double toRate = rates.get(toCurrency);
 
-        // Convert the amount to USD first (assuming rates are relative to USD) and then to the target currency
-        double amountInUsd = amount / fromRate;  // Convert from source currency to USD
-        double convertedAmount = (amountInUsd * toRate);  // Convert from USD to target currency
+        double amountInUsd = amount / fromRate;
+        double convertedAmount = (amountInUsd * toRate);
 
         System.out.println(String.format("The value of %.2f [%s] corresponds to the final value of =>> %.2f [%s]\n",
                 amount, fromCurrency, convertedAmount, toCurrency));
