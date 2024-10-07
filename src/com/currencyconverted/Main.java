@@ -31,11 +31,7 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Map<String, Double> rates = ExchangeRateClient.getCurrencyExchange().conversion_rates();
 
-//        just in case I want to have some of them
-//        Map<String, Double> filteredRates = CurrencyFilteredUtils.getFilteredRates(rates);
-
         Menu menu = new Menu(rates);
         menu.start();
-
     }
 }
